@@ -27,6 +27,8 @@ body {
 	line-height: 1;
 	background-color: #262626;
 	overflow: hidden;
+	font-family: 'Fjalla One', sans-serif;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 ol, ul {
 	list-style: none;

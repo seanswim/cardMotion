@@ -1,10 +1,15 @@
-import { Container, Wrapper, ColorTag } from "./CardStyles"
+import { Container, Wrapper, ColorTag, Content } from "./CardStyles"
 
-const Card = ({index}) => {
+const Card = ({front, id, isSelected}) => {
+
+  const fontSize = Math.max(80 - (front.length * 5), 30);
+
   return (
-    <Container index={index}>
+    <Container isSelected={isSelected}>
       <Wrapper>
-        card
+        <Content fontSize={fontSize}>
+          {front}
+        </Content>
       </Wrapper>
       <ColorTag />
     </Container>
