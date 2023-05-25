@@ -5,6 +5,7 @@ import { CustomEase } from 'gsap/CustomEase';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import _ from 'lodash';
 import Ui from './ui/Ui';
+import { cardList as _cardList } from './data';
 
 const Container = styled.div`
   position: absolute;
@@ -12,58 +13,30 @@ const Container = styled.div`
 
 function App() {
 
-  const [cardList, setCardList] = useState([
-    {
-      id:'one',
-      front: '태양과 별 바람'
-    },{
-      id:'two',
-      front: '하늘'
-    },{
-      id:'three',
-      front: 'A'
-    },{
-      id:'four',
-      front: `Proin mollis libero turpis, in porttitor erat suscipit mollis. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Curabitur euismod justo sit amet orci ullamcorper dignissim. 
-      Vestibulum ligula tellus, gravida ac`
-    },{
-      id:'five',
-      front: 'consectetur adipiscing elit. Vivamus nec quam diam.'
-    },{
-      id:'six',
-      front: 'Lorem ipsum dolor sit amet'
-    },{
-      id:'seven',
-      front: 'Lorem Ipsum'
-    },{
-      id:'eight',
-      front: 'Lorem'
-    }])
+  const [cardList, setCardList] = useState(_cardList)
   const [width, setWidth] = useState(innerWidth);
   const [idx, setIdx] = useState(cardList.length-1);
   const [action, setAction] = useState();
+  const [shownside, setShownside] = useState('front');
 
   const handleKeyDown = (e) => {
     if (e.key === ' ') {
-
+      setShownside((prev) => {
+        if (prev === 'front') return 'back'
+        if (prev === 'back') return 'front'
+      })
     }
 
     if (e.key === 'ArrowLeft') {
       if (idx === cardList.length -1) return
+      setShownside('front')
       setIdx((prev) => prev+1)
       setAction('backward')
     }
 
     if (e.key === 'ArrowRight') {
       if (idx === 0) return
+      setShownside('front')
       setIdx((prev) => prev-1)
       setAction('forward')
     }
@@ -129,7 +102,6 @@ function App() {
         const element = document.querySelector(`.${el.id}`)
         const offsetWidth = element.children[0].offsetWidth
         const offsetHeight = element.children[0].offsetHeight
-        // const scale = offsetWidth * 1.5 > innerWidth ? 1 : 1.5
         gsap.to(`.${el.id}`, 
           {
             x: innerWidth/2 - offsetWidth / 2,
@@ -150,7 +122,6 @@ function App() {
     })
 
     return () => window.removeEventListener('reset', resizeListener)
-    
   },[innerWidth])
 
   return (
@@ -162,12 +133,13 @@ function App() {
         >
           <Card  
             isSelected={i === idx}
-            id={el.id}
             front={el.front}
+            back={el.back}
+            shownSide={ i === idx ? shownside : 'front'}
           />
         </div>
       ))}
-      <Ui screenSize={width}/>
+      <Ui screenSize={width} />
     </Container>
   )
 }

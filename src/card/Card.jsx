@@ -1,17 +1,27 @@
-import { Container, Wrapper, ColorTag, Content } from "./CardStyles"
+import { Container, Wrapper, ColorTag, Content, ContentWrapper } from "./CardStyles"
 
-const Card = ({front, id, isSelected}) => {
+const Card = ({front, back, isSelected, shownSide}) => {
 
   const fontSize = Math.max(80 - (front.length * 5), 30);
 
   return (
-    <Container isSelected={isSelected}>
-      <Wrapper>
-        <Content fontSize={fontSize}>
-          {front}
-        </Content>
+    <Container isSelected={isSelected} fontSize={fontSize} shownSide={shownSide}>
+      <Wrapper side='front' shownSide={shownSide}>
+        <ContentWrapper>
+          <Content>
+            {front}
+          </Content>
+        </ContentWrapper>
+        <ColorTag />
       </Wrapper>
-      <ColorTag />
+      <Wrapper side='back' shownSide={shownSide}>
+        <ContentWrapper>
+          <Content>
+            {back}
+          </Content>
+        </ContentWrapper>
+        <ColorTag />
+      </Wrapper>
     </Container>
   )
 }
