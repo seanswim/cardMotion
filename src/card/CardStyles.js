@@ -10,7 +10,7 @@ export const Container = styled.div`
   position: absolute;
   cursor: pointer;
   font-size: ${props => props.fontSize+'px'};
-  transform: ${props => props.isSelected ? 'sc ale(1.5)': ''};
+  transform: ${props => props.isSelected ? 'scale(1.5)': ''};
   :hover {
     scale: 1.05;
   }
