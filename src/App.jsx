@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { CustomEase } from 'gsap/CustomEase';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import _ from 'lodash';
+import Ui from './ui/Ui';
 
 const Container = styled.div`
   position: absolute;
@@ -166,6 +167,7 @@ function App() {
           />
         </div>
       ))}
+      <Ui screenSize={width}/>
     </Container>
   )
 }
